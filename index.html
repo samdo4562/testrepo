@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>제주 커피축제 예산 프레젠테이션</title>
+  <style>
+    :root{
+      --coffee:#5b3924; --coffee2:#7a4f35; --cream:#fff7ec; --paper:#fffdf8;
+      --gold:#d59b5b; --mint:#4c8b78; --ink:#1f2933; --muted:#64748b;
+      --line:rgba(91,57,36,.18); --shadow:0 20px 60px rgba(42,28,18,.22);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;height:100%;overflow:hidden;font-family:"Malgun Gothic","Apple SD Gothic Neo",Arial,sans-serif;background:#20150f;color:var(--ink)}
+    #threeBg{position:fixed;inset:0;z-index:0;background:linear-gradient(135deg,#25150d,#5b3924 42%,#a1693a)}
+    #threeMascot{
+      position:fixed;right:5vw;bottom:7vh;z-index:1;
+      width:300px;height:300px;pointer-events:none;
+      opacity:.42;filter:blur(.2px) saturate(.9);
+    }
+    #threeMascotLabel{display:none}
+    @media (max-width:980px){#threeMascot{width:210px;height:210px;right:2vw;bottom:7vh;opacity:.30}}
+    .deck{position:relative;z-index:2;height:100vh;width:100vw;display:flex;align-items:center;justify-content:center;padding:32px}
+    .slide{display:none;width:min(1280px,94vw);height:min(720px,88vh);background:linear-gradient(140deg,rgba(255,253,248,.97),rgba(255,247,236,.94));border:1px solid rgba(255,255,255,.5);border-radius:30px;box-shadow:var(--shadow);overflow:hidden;position:relative;padding:54px 64px}
+    .slide.active{display:block;animation:fade .28s ease-out}
+    @keyframes fade{from{opacity:.25;transform:translateY(10px)}to{opacity:1;transform:none}}
+    .slide:before{content:"";position:absolute;right:-120px;top:-120px;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle,rgba(213,155,91,.34),rgba(213,155,91,0) 68%)}
+    .slide:after{content:"";position:absolute;left:-80px;bottom:-80px;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(76,139,120,.20),rgba(76,139,120,0) 70%)}
+    .num{position:absolute;right:38px;bottom:26px;color:#9b8a7a;font-size:15px;font-weight:700;letter-spacing:.04em}
+    .tag{display:inline-block;background:#ead7c6;color:#4b3324;border-radius:999px;padding:7px 16px;font-weight:800;font-size:15px;margin-bottom:16px}
+    h1{font-size:58px;letter-spacing:-.055em;line-height:1.08;margin:8px 0 18px;color:#3d291d}
+    h2{font-size:42px;letter-spacing:-.045em;line-height:1.12;margin:0 0 24px;color:#3d291d}
+    h3{font-size:25px;margin:0 0 12px;color:#4b3324}
+    p{font-size:22px;line-height:1.58;margin:0 0 15px;color:#374151}
+    .lead{font-size:28px;color:#374151;max-width:920px;font-weight:700;line-height:1.45}
+    .muted{color:var(--muted);font-size:18px}
+    .grid{display:grid;gap:20px}.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}
+    .card{background:rgba(255,255,255,.72);border:1px solid var(--line);border-radius:22px;padding:24px;box-shadow:0 10px 30px rgba(91,57,36,.08)}
+    .metric{font-size:46px;font-weight:900;color:#5b3924;line-height:1}.metric small{font-size:22px}
+    ul{margin:8px 0 0;padding-left:24px}.li-lg li, li{font-size:22px;margin:9px 0;line-height:1.5}.li-sm li{font-size:19px;margin:7px 0}
+    table{width:100%;border-collapse:collapse;background:rgba(255,255,255,.78);border-radius:18px;overflow:hidden;font-size:18px}th,td{border:1px solid rgba(91,57,36,.16);padding:12px 14px;text-align:left}th{background:#ead7c6;color:#3d291d;text-align:center}.right{text-align:right}.center{text-align:center}
+    .hero{display:grid;grid-template-columns:1.05fr .95fr;gap:36px;align-items:center;height:100%}
+    .coffee-visual{height:410px;border-radius:36px;background:linear-gradient(135deg,#ead7c6,#fff7ec);position:relative;overflow:hidden;border:1px solid rgba(91,57,36,.18)}
+    .cup{position:absolute;left:150px;top:130px;width:210px;height:150px;background:#fff;border:8px solid #5b3924;border-radius:0 0 58px 58px;box-shadow:0 20px 35px rgba(91,57,36,.18)}
+    .cup:before{content:"";position:absolute;right:-78px;top:25px;width:70px;height:70px;border:10px solid #5b3924;border-left:0;border-radius:0 50px 50px 0}.coffee{position:absolute;left:10px;right:10px;top:8px;height:38px;background:#6f4e37;border-radius:50%}.steam{position:absolute;width:18px;height:90px;border-radius:50%;border-left:5px solid rgba(91,57,36,.55);top:28px}.s1{left:180px}.s2{left:245px;animation-delay:.2s}.s3{left:305px;animation-delay:.4s}.bean{position:absolute;background:#7a4f35;border-radius:50%;transform:rotate(25deg)}.bean:after{content:"";position:absolute;left:50%;top:10%;height:80%;border-left:3px solid rgba(255,247,236,.65);transform:translateX(-50%) rotate(8deg)}
+    .chart-row{display:grid;grid-template-columns:.92fr 1.08fr;gap:24px;align-items:center}.donutWrap{display:flex;align-items:center;justify-content:center;min-height:420px}.donut{width:360px;height:360px;border-radius:50%;background:conic-gradient(#5b3924 0 22.5%,#9b6742 22.5% 42.5%,#d59b5b 42.5% 55%,#c48752 55% 67.5%,#4c8b78 67.5% 77.5%,#87a878 77.5% 85%,#b8a28a 85% 90%,#7c8a99 90% 97.5%,#d9c3af 97.5% 100%);position:relative;box-shadow:inset 0 0 0 1px rgba(0,0,0,.07),0 16px 30px rgba(91,57,36,.2)}.donut:after{content:"총예산\A 2억원";white-space:pre;display:flex;align-items:center;justify-content:center;text-align:center;position:absolute;inset:86px;background:var(--paper);border-radius:50%;font-size:30px;font-weight:900;color:#4b3324;line-height:1.25}.legend{display:grid;gap:9px}.legend-item{display:grid;grid-template-columns:16px 1fr auto;gap:10px;align-items:center;font-size:18px}.sw{width:16px;height:16px;border-radius:4px}.bar{height:28px;background:#efe4d8;border-radius:999px;overflow:hidden}.bar span{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,#5b3924,#d59b5b)}
+    .barlist{display:grid;gap:13px}.barline{display:grid;grid-template-columns:150px 1fr 92px;gap:12px;align-items:center;font-size:18px;font-weight:700;color:#4b3324}
+    .timeline{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:28px}.step{padding:20px;border-radius:22px;background:rgba(255,255,255,.72);border:1px solid var(--line)}.step b{display:block;color:#5b3924;font-size:20px;margin-bottom:8px}.step span{font-size:17px;color:#374151;line-height:1.45}
+    .controls{position:fixed;z-index:3;left:50%;bottom:22px;transform:translateX(-50%);display:flex;gap:12px;align-items:center;background:rgba(255,253,248,.86);border:1px solid rgba(255,255,255,.45);backdrop-filter:blur(10px);padding:10px 14px;border-radius:999px;box-shadow:0 12px 30px rgba(0,0,0,.18)}
+    button{border:0;background:#5b3924;color:#fff;padding:11px 18px;border-radius:999px;font-weight:900;cursor:pointer}button:hover{background:#3d291d}.pager{min-width:76px;text-align:center;font-weight:900;color:#4b3324}
+    .hint{position:fixed;z-index:3;right:28px;top:20px;color:rgba(255,255,255,.78);font-size:14px}
+    @media print{html,body{height:auto;overflow:visible;background:#fff}.deck{display:block;height:auto;padding:0}.slide{display:block!important;width:297mm;height:167mm;page-break-after:always;box-shadow:none;border-radius:0;margin:0;padding:18mm}.controls,.hint,#threeBg,#threeMascot,#threeMascotLabel{display:none}.num{bottom:12mm}}
+  </style>
+</head>
+<body>
+  <canvas id="threeBg"></canvas>
+  <canvas id="threeMascot"></canvas>
+  <div class="hint">← → 키 또는 버튼으로 이동 · Three.js 3D 마스코트 확대 표시</div>
+  <div class="deck">
+    <section class="slide active"><div class="hero"><div><span class="tag">제주특별자치도 · 시민복지타운</span><h1>제주 커피축제<br>예산 프레젠테이션</h1><p class="lead">2박 3일 도심형 생활문화 축제로 커피산업·관광·청년창업·지역상권을 연결하는 실행 예산안</p><p class="muted">총예산 200,000천원 / 장소 시민복지타운 / 작성 부경환 주무관</p></div><div class="coffee-visual"><div class="steam s1"></div><div class="steam s2"></div><div class="steam s3"></div><div class="cup"><div class="coffee"></div></div><div class="bean" style="width:74px;height:112px;right:90px;top:64px"></div><div class="bean" style="width:54px;height:78px;left:88px;bottom:60px"></div></div></div><div class="num">01 / 15</div></section>
+
+    <section class="slide"><span class="tag">핵심 결론</span><h2>예산안의 큰 방향</h2><div class="grid g3"><div class="card"><div class="metric">2억</div><h3>총사업비</h3><p>시민복지타운 야외공간에 맞춘 행사장 조성, 프로그램, 안전, 홍보를 균형 배분함.</p></div><div class="card"><div class="metric">42.5<small>%</small></div><h3>행사장+프로그램</h3><p>축제 품질을 좌우하는 공간 조성과 체험 콘텐츠에 가장 큰 비중을 편성함.</p></div><div class="card"><div class="metric">10<small>%</small></div><h3>안전관리</h3><p>인파·교통·의료·보험 등 현장 리스크 관리를 별도 예산으로 확보함.</p></div></div><div class="num">02 / 15</div></section>
+
+    <section class="slide"><span class="tag">행사 개요</span><h2>2박 3일 행사 운영 프레임</h2><table><tr><th>구분</th><th>내용</th></tr><tr><td>행사명</td><td>2026 제주 커피축제</td></tr><tr><td>기간</td><td>2박 3일</td></tr><tr><td>장소</td><td>제주시 시민복지타운 일원</td></tr><tr><td>주요대상</td><td>도민, 관광객, 커피업계 종사자, 청년층, 가족 단위 방문객</td></tr><tr><td>주요내용</td><td>커피 시음·판매, 로스터리 부스, 바리스타 체험, 커피 클래스, 공연, 야간 프로그램, 플리마켓</td></tr><tr><td>총예산</td><td><strong>200,000천원</strong></td></tr></table><div class="num">03 / 15</div></section>
+
+    <section class="slide"><span class="tag">예산 총괄</span><h2>총예산 200,000천원 배분</h2><div class="chart-row"><div class="donutWrap"><div class="donut"></div></div><div class="legend"><div class="legend-item"><span class="sw" style="background:#5b3924"></span><span>행사장 조성</span><b>45,000천원 · 22.5%</b></div><div class="legend-item"><span class="sw" style="background:#9b6742"></span><span>프로그램 운영</span><b>40,000천원 · 20.0%</b></div><div class="legend-item"><span class="sw" style="background:#d59b5b"></span><span>공연 및 콘텐츠</span><b>25,000천원 · 12.5%</b></div><div class="legend-item"><span class="sw" style="background:#c48752"></span><span>홍보·마케팅</span><b>25,000천원 · 12.5%</b></div><div class="legend-item"><span class="sw" style="background:#4c8b78"></span><span>안전·질서관리</span><b>20,000천원 · 10.0%</b></div><div class="legend-item"><span class="sw" style="background:#87a878"></span><span>참여업체 지원</span><b>15,000천원 · 7.5%</b></div><div class="legend-item"><span class="sw" style="background:#b8a28a"></span><span>환경·청소관리</span><b>10,000천원 · 5.0%</b></div><div class="legend-item"><span class="sw" style="background:#7c8a99"></span><span>운영관리비</span><b>15,000천원 · 7.5%</b></div><div class="legend-item"><span class="sw" style="background:#d9c3af"></span><span>예비비</span><b>5,000천원 · 2.5%</b></div></div></div><div class="num">04 / 15</div></section>
+
+    <section class="slide"><span class="tag">비중 차트</span><h2>항목별 예산 규모 비교</h2><div class="barlist"><div class="barline"><span>행사장 조성</span><div class="bar"><span style="width:100%"></span></div><span>45,000</span></div><div class="barline"><span>프로그램 운영</span><div class="bar"><span style="width:88.9%"></span></div><span>40,000</span></div><div class="barline"><span>공연·콘텐츠</span><div class="bar"><span style="width:55.6%"></span></div><span>25,000</span></div><div class="barline"><span>홍보·마케팅</span><div class="bar"><span style="width:55.6%"></span></div><span>25,000</span></div><div class="barline"><span>안전·질서</span><div class="bar"><span style="width:44.4%"></span></div><span>20,000</span></div><div class="barline"><span>참여업체</span><div class="bar"><span style="width:33.3%"></span></div><span>15,000</span></div><div class="barline"><span>운영관리</span><div class="bar"><span style="width:33.3%"></span></div><span>15,000</span></div><div class="barline"><span>환경·청소</span><div class="bar"><span style="width:22.2%"></span></div><span>10,000</span></div><div class="barline"><span>예비비</span><div class="bar"><span style="width:11.1%"></span></div><span>5,000</span></div></div><p class="muted" style="margin-top:18px">단위: 천원</p><div class="num">05 / 15</div></section>
+
+    <section class="slide"><span class="tag">1순위 투자</span><h2>행사장 조성 45,000천원</h2><div class="grid g2"><div><p class="lead">시민복지타운 야외공간을 축제장으로 전환하는 기본 인프라 예산.</p><ul class="li-lg"><li>부스·텐트·전기·급수 등 기본 운영기반 구축</li><li>메인무대, 음향, 조명, 야간 연출 확보</li><li>포토존·휴게존·동선 안내물 설치</li></ul></div><div class="card"><h3>편성 논리</h3><p>2박 3일 행사의 체류성을 높이려면 부스만 설치하는 방식으로는 부족함. 주간 체험과 야간 피크닉을 모두 수용할 수 있는 공간 연출비가 필요함.</p></div></div><div class="num">06 / 15</div></section>
+
+    <section class="slide"><span class="tag">콘텐츠 투자</span><h2>프로그램 운영 40,000천원</h2><div class="grid g3"><div class="card"><h3>커피 체험</h3><ul class="li-sm"><li>핸드드립</li><li>라떼아트</li><li>향미 테스트</li></ul></div><div class="card"><h3>전문 프로그램</h3><ul class="li-sm"><li>홈카페 클래스</li><li>바리스타 경연</li><li>로스터리 토크</li></ul></div><div class="card"><h3>가족 프로그램</h3><ul class="li-sm"><li>머그컵 꾸미기</li><li>커피박 화분</li><li>비커피 체험</li></ul></div></div><p class="lead" style="margin-top:24px">방문객이 직접 참여하는 콘텐츠를 충분히 확보해야 단순 판매장터가 아닌 축제로 평가받을 수 있음.</p><div class="num">07 / 15</div></section>
+
+    <section class="slide"><span class="tag">야간 체류</span><h2>공연 및 콘텐츠 25,000천원</h2><div class="grid g2"><div class="card"><h3>주요 집행</h3><ul><li>개막 축하공연</li><li>재즈·어쿠스틱·버스킹</li><li>사회자, 음향 운영, 야간 콘텐츠</li></ul></div><div class="card"><h3>예산 효과</h3><p>야간 공연은 방문객 체류시간을 늘리고 푸드트럭, 커피부스, 디저트존 매출과 연결됨. 시민복지타운의 야간 활용도도 높일 수 있음.</p></div></div><div class="num">08 / 15</div></section>
+
+    <section class="slide"><span class="tag">모객 전략</span><h2>홍보·마케팅 25,000천원</h2><div class="grid g3"><div class="card"><h3>온라인</h3><p>SNS, 카드뉴스, 숏폼, 공식 홈페이지, 참여 카페 공동 홍보</p></div><div class="card"><h3>오프라인</h3><p>공항, 터미널, 관광지, 카페 밀집지역 포스터·배너 배포</p></div><div class="card"><h3>관광연계</h3><p>제주 카페투어 지도, 숙박업소·관광기관 연계 홍보</p></div></div><p class="lead" style="margin-top:26px">홍보비는 단기 방문객 확보뿐 아니라 축제 이후 제주 카페투어 확산을 위한 투자 성격이 큼.</p><div class="num">09 / 15</div></section>
+
+    <section class="slide"><span class="tag">리스크 관리</span><h2>안전·질서관리 20,000천원</h2><ul class="li-lg"><li>안전요원, 의료부스, 행사보험, 교통·주차 안내 인력 편성</li><li>메인무대·푸드트럭존·부스존 혼잡구간 동선 분리</li><li>우천·강풍·폭염 대응 및 전기시설 안전점검</li><li>야간 프로그램 종료 시 순차 귀가 안내체계 운영</li></ul><div class="card" style="margin-top:24px"><h3>핵심 메시지</h3><p>축제 예산에서 안전비를 명확히 분리해야 사고 대응뿐 아니라 사전 예방 중심의 운영계획이 가능함.</p></div><div class="num">10 / 15</div></section>
+
+    <section class="slide"><span class="tag">지역상생</span><h2>참여업체 지원 15,000천원</h2><div class="grid g2"><div><p class="lead">도내 로스터리·카페·디저트 업체의 참여 장벽을 낮추고, 시음 콘텐츠 품질을 확보하는 예산.</p><ul><li>부스 운영 일부 지원</li><li>시음재료 일부 지원</li><li>도내 업체 우선 참여 원칙 검토</li><li>청년창업 브랜드 홍보 기회 제공</li></ul></div><div class="card"><h3>기대효과</h3><p>축제 방문객을 실제 도내 카페 방문으로 연결하고, 참여업체의 브랜드 노출과 매출 확대를 유도함.</p></div></div><div class="num">11 / 15</div></section>
+
+    <section class="slide"><span class="tag">친환경 축제</span><h2>환경·청소관리 10,000천원</h2><div class="grid g3"><div class="card"><h3>다회용기</h3><p>일회용컵 사용 최소화, 텀블러 지참 혜택 운영</p></div><div class="card"><h3>커피박 재활용</h3><p>화분·탈취제 만들기 등 업사이클링 체험 운영</p></div><div class="card"><h3>사후정비</h3><p>분리수거존, 수시 청소, 행사 종료 후 시민복지타운 환경정비</p></div></div><p class="lead" style="margin-top:24px">커피축제의 정체성과 친환경 실천 메시지를 연결하는 예산 항목임.</p><div class="num">12 / 15</div></section>
+
+    <section class="slide"><span class="tag">관리 예산</span><h2>운영관리비 15,000천원 · 예비비 5,000천원</h2><div class="grid g2"><div class="card"><h3>운영관리비</h3><ul><li>운영본부 인력</li><li>회의·사무관리</li><li>민원·분실물·안내 운영</li><li>행사기간 현장관리</li></ul></div><div class="card"><h3>예비비</h3><ul><li>우천·강풍 등 긴급 대응</li><li>전기·시설 보강</li><li>안전·동선 추가 조치</li><li>예상치 못한 현장수요 대응</li></ul></div></div><div class="num">13 / 15</div></section>
+
+    <section class="slide"><span class="tag">집행 로드맵</span><h2>단계별 예산 집행계획</h2><div class="timeline"><div class="step"><b>4개월 전</b><span>기본계획 수립, 장소 협의, 예산 확정</span></div><div class="step"><b>3개월 전</b><span>대행사 선정, 참여업체 모집, 홍보 착수</span></div><div class="step"><b>2개월 전</b><span>프로그램 확정, 안전관리계획 수립</span></div><div class="step"><b>1개월 전</b><span>부스 배치, 공연 섭외, 유관기관 협의</span></div><div class="step"><b>행사 후</b><span>정산, 결과보고, 만족도 조사, 개선사항 도출</span></div></div><div class="num">14 / 15</div></section>
+
+    <section class="slide"><span class="tag">종합 검토</span><h2>최종 제안</h2><p class="lead">본 예산안은 행사장 조성 22.5%, 프로그램 운영 20.0%를 중심으로 축제의 현장 완성도와 방문객 체험 품질을 우선 확보하는 구조임.</p><div class="grid g3" style="margin-top:28px"><div class="card"><h3>축제성</h3><p>커피 체험, 경연, 야간공연을 결합해 체류형 행사로 설계</p></div><div class="card"><h3>공공성</h3><p>안전, 친환경, 지역상생 예산을 별도 편성해 행정 신뢰도 확보</p></div><div class="card"><h3>확장성</h3><p>향후 제주 카페투어, 로컬브랜드 박람회로 연계 가능</p></div></div><p class="lead" style="margin-top:28px;color:#5b3924">따라서 총예산 200,000천원 범위에서 원안 추진이 타당함.</p><div class="num">15 / 15</div></section>
+  </div>
+
+  <div class="controls"><button id="prev">이전</button><div class="pager"><span id="cur">1</span> / 15</div><button id="next">다음</button></div>
+
+  <script>
+    const slides=[...document.querySelectorAll('.slide')]; let idx=0; const cur=document.getElementById('cur');
+    function show(i){idx=(i+slides.length)%slides.length; slides.forEach((s,n)=>s.classList.toggle('active',n===idx)); cur.textContent=idx+1;}
+    document.getElementById('next').onclick=()=>show(idx+1); document.getElementById('prev').onclick=()=>show(idx-1);
+    window.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='PageDown')show(idx+1); if(e.key==='ArrowLeft'||e.key==='PageUp')show(idx-1); if(e.key==='Home')show(0); if(e.key==='End')show(slides.length-1);});
+  </script>
+  <script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
+  <script>
+    (function(){
+      if(!window.THREE) return;
+      const canvas=document.getElementById('threeMascot');
+      const renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:true});
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
+      const scene=new THREE.Scene();
+      const camera=new THREE.PerspectiveCamera(42,1,.1,100); camera.position.set(0,1.35,4.3);
+      const light=new THREE.DirectionalLight(0xffffff,1.8); light.position.set(3,5,4); scene.add(light); scene.add(new THREE.AmbientLight(0xffe9d2,1.15));
+      const group=new THREE.Group(); group.scale.set(1.45,1.45,1.45); scene.add(group);
+      function mat(c){return new THREE.MeshStandardMaterial({color:c,roughness:.55,metalness:.04});}
+      const body=new THREE.Mesh(new THREE.SphereGeometry(.48,40,28),mat(0x7a4f35)); body.scale.set(1,.9,.7); body.position.y=.55; group.add(body);
+      const head=new THREE.Mesh(new THREE.SphereGeometry(.28,32,24),mat(0xf5d7b8)); head.position.set(0,1.08,0); group.add(head);
+      const cup=new THREE.Mesh(new THREE.CylinderGeometry(.25,.32,.38,32),mat(0xffffff)); cup.position.set(.42,.72,.02); cup.rotation.z=-.35; group.add(cup);
+      const coffee=new THREE.Mesh(new THREE.CylinderGeometry(.22,.22,.025,32),mat(0x3b2116)); coffee.position.set(.42,.925,.02); coffee.rotation.z=-.35; group.add(coffee);
+      const armL=new THREE.Mesh(new THREE.CapsuleGeometry(.06,.56,8,16),mat(0xf5d7b8)); const armR=armL.clone(); armL.position.set(-.48,.62,0); armR.position.set(.52,.62,0); group.add(armL,armR);
+      const legL=new THREE.Mesh(new THREE.CapsuleGeometry(.07,.62,8,16),mat(0x3d291d)); const legR=legL.clone(); legL.position.set(-.18,.05,0); legR.position.set(.18,.05,0); group.add(legL,legR);
+      const ground=new THREE.Mesh(new THREE.TorusGeometry(2.6,.015,8,160),mat(0xd59b5b)); ground.rotation.x=Math.PI/2; ground.position.y=-.34; scene.add(ground);
+      const beans=[]; for(let i=0;i<34;i++){const b=new THREE.Mesh(new THREE.SphereGeometry(.075,16,12),mat(0x8b5e3c)); b.scale.set(1.35,.7,.55); b.position.set((Math.random()-.5)*4.2,Math.random()*3.4-1.1,-Math.random()*2.2-1); b.rotation.z=Math.random()*Math.PI; scene.add(b); beans.push(b);}      
+      function resize(){
+        const w=canvas.clientWidth||360, h=canvas.clientHeight||360;
+        renderer.setSize(w,h,false); camera.aspect=w/h; camera.updateProjectionMatrix();
+      } resize(); addEventListener('resize',resize);
+      let t=0; function anim(){t+=.035; group.position.x=Math.sin(t*.55)*.75; group.position.y=Math.abs(Math.sin(t*2.3))*.18-.25; group.rotation.y=Math.sin(t*.65)*.22; armL.rotation.z=Math.sin(t*2.5)*.8; armR.rotation.z=-Math.sin(t*2.5)*.65; legL.rotation.z=-Math.sin(t*2.5)*.65; legR.rotation.z=Math.sin(t*2.5)*.65; beans.forEach((b,i)=>{b.position.y-=.006+(i%5)*.001; b.rotation.x+=.01; if(b.position.y<-1.35)b.position.y=2.6;}); renderer.render(scene,camera); requestAnimationFrame(anim);} anim();
+    })();
+  </script>
+</body>
+</html>
